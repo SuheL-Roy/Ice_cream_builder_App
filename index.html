@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <link rel="shortcut icon" href="images/logo.svg" />
+    <title>Ice Cream Builder</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <div class="container" id="header">
+          <div>
+            <img class="logo" src="images/logo.svg" alt="Logo" />
+          </div>
+          <div class="textRight">
+            <img src="images/vue.svg" alt="Vue.js" class="vueLogo" /><strong
+              >Vue.js</strong
+            >
+          </div>
+        </div>
+      </header>
+
+      <div class="mainBody" id="body">
+        <div class="container" id="iceCreamBuilder">
+          <ice-cream :cart="cart"></ice-cream>
+          <!-- <div>
+            <div class="icecream" id="icecream">
+              <p class="cone"></p>
+              <div
+                class="scoop"
+                v-for="cartItem in cart"
+                :class="cartItem.name.toLowerCase()"
+              ></div>
+              <div class="cherry" v-if="cart.length > 0"></div>
+              <div class="question" v-else></div>
+            </div>
+          </div>-->
+          <div id="builder">
+            <div class="builder">
+              <h3>
+                Build your cool Ice Cream
+                <span
+                  class="quantity"
+                  :style="cart.length === 0 ? {color: 'red'} : {}"
+                >
+                  {{cart.length}}
+                </span>
+              </h3>
+
+              <div id="items">
+                <ul>
+                  <li
+                    class="item"
+                    :key="variant.id"
+                    v-for="variant in variants"
+                  >
+                    <span> {{variant.name}} </span>
+                    <div class="right">
+                      <button
+                        type="button"
+                        class="plus rounded"
+                        @click="addToCart(variant.id)"
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        class="minus rounded"
+                        @click="removeFromCart(variant.id)"
+                      >
+                        -
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="total" id="total">
+                <div>Total price</div>
+                <div>{{ total }} Tk</div>
+              </div>
+
+              <button type="button" class="order rounded" @click="toggleModal">
+                Add to cart
+              </button>
+            </div>
+
+            <order-form
+              :cart="cart"
+              :total="total"
+              v-if="showModal"
+              @toggle-order-form="toggleModal"
+              @clear-cart="clearCart"
+            >
+            </order-form>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="container" id="footer">
+          <div>Copyright &copy;2021.</div>
+          <div class="textRight">
+            Built with <span class="red">&hearts;</span> by
+            <a href="#" target="_blank">Hunter Cafe</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="./index.js"></script>
+    <script src="./Components//Ice-creame.js"></script>
+    <script src="./Components/order-form.js"></script>
+    <script>
+      const mountedapp = app.mount("#app");
+    </script>
+  </body>
+</html>
